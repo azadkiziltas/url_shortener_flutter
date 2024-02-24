@@ -20,7 +20,6 @@ class ShortedLinkBloc extends Bloc<ShortedLinkEvent, ShortedLinkState> {
           emit(ShortedLinkSuccessState(shortedUrl));
         } catch (e) {
           emit(ShortedLinkErrorState(e.toString()));
-          print(e.toString());
         }
       }
     });

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_shortener/bloc/link_history/link_History_state.dart';
 import 'package:url_shortener/bloc/link_history/link_history_bloc.dart';
 import 'package:url_shortener/data/models/link_history_model.dart';
@@ -37,28 +38,41 @@ class _HistoryListState extends State<HistoryList> {
           child: BlocBuilder<LinkHistoryBloc, LinkHistoryState>(
             builder: (context, state) {
               if (state is LinkHistoryLoaded) {
-                if(state.linkHistory.isNotEmpty){
-                  return ListView.builder(
-                    itemCount: state.linkHistory.length,
-                    itemBuilder: (context, index) {
-                      final link = state.linkHistory[index];
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                            top: 8.0, left: 8, right: 8, bottom: 8),
+                return ListView.builder(
+                  itemCount: state.linkHistory.length,
+                  itemBuilder: (context, index) {
+                    final link = state.linkHistory[index];
+                    return Padding(
+                      padding: const EdgeInsets.only(
+                          top: 8.0, left: 8, right: 8, bottom: 8),
+                      child: SizedBox(
                         child: ListTile(
+                          contentPadding: const EdgeInsets.only(
+                            left: 20,
+                            top: 8,
+                            bottom: 8,
+                            right: 8,
+                          ),
+                          // Sağ boşluğu azaltır
+
                           onTap: () {
+                            Fluttertoast.showToast(
+                                msg: "Short Link Copy.",
+                                gravity: ToastGravity.CENTER);
+
                             Clipboard.setData(
                                 ClipboardData(text: link.shortedUrl));
                           },
                           tileColor: UserTheme.onPrimary,
                           shape: const RoundedRectangleBorder(
                               borderRadius:
-                              BorderRadius.all(Radius.circular(15))),
+                                  BorderRadius.all(Radius.circular(15))),
                           title: Text(
                             link.shortedUrl,
                             style: TextStyle(
                                 color: UserTheme.primaryColor,
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18),
                           ),
                           subtitle: Text(link.url),
                           trailing: IconButton(
@@ -67,58 +81,30 @@ class _HistoryListState extends State<HistoryList> {
                                     DeleteLinkHistory(LinkHistoryModel(
                                         url: link.url,
                                         shortedUrl: link.shortedUrl)));
+                                if (state.linkHistory.isEmpty) {
+                                  _linkHistoryBloc.add(FetchLinkHistory());
+                                }
                               },
                               icon: const Icon(Icons.delete_forever)),
                         ),
-                      );
-                    },
-                  );
-
-                }
-                else{
-                  return ListView.builder(
-                    itemCount: state.linkHistory.length,
-                    itemBuilder: (context, index) {
-                      final link = state.linkHistory[index];
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                            top: 8.0, left: 8, right: 8, bottom: 8),
-                        child: ListTile(
-                          onTap: () {
-                            Clipboard.setData(
-                                ClipboardData(text: link.shortedUrl));
-                          },
-                          tileColor: UserTheme.onPrimary,
-                          shape: const RoundedRectangleBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(15))),
-                          title: Text(
-                            link.shortedUrl,
-                            style: TextStyle(
-                                color: UserTheme.primaryColor,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: Text(link.url),
-                          trailing: IconButton(
-                              onPressed: () {
-                                BlocProvider.of<LinkHistoryBloc>(context).add(
-                                    DeleteLinkHistory(LinkHistoryModel(
-                                        url: link.url,
-                                        shortedUrl: link.shortedUrl)));
-                              },
-                              icon: const Icon(Icons.delete_forever)),
-                        ),
-                      );
-                    },
-                  );
-
-                }
-
+                      ),
+                    );
+                  },
+                );
+              }
+              if (state is LinkHistoryEmpty) {
+                return const Center(
+                  child: Text(
+                    'Link history is empty.',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                );
               } else {
                 return const Center(
-                  child: Text('Link history is empty.',style: TextStyle(
-                    fontSize: 20
-                  ),),
+                  child: Text(
+                    'Link history is empty.',
+                    style: TextStyle(fontSize: 20),
+                  ),
                 );
               }
             },

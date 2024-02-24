@@ -114,9 +114,12 @@ class _UrlShortenerState extends State<UrlShortener> {
                           if (state is ShortedLinkSuccessState) {
                             isLoadingShortLink = false;
                             String url = textEditingController.text;
-                            BlocProvider.of<LinkHistoryBloc>(context).add(
-                                AddLinkHistory(LinkHistoryModel(
-                                    url: url, shortedUrl: state.shortedLinkModel.data)));
+                            if(url.isNotEmpty){
+                              BlocProvider.of<LinkHistoryBloc>(context).add(
+                                  AddLinkHistory(LinkHistoryModel(
+                                      url: url, shortedUrl: state.shortedLinkModel.data)));
+                            }
+
                             return  const Text("SHORTEN IT");
                           }
                           if (state is ShortedLinkErrorState) {
