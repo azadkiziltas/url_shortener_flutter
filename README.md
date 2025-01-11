@@ -29,7 +29,7 @@ The app is built using the **BLoC (Business Logic Component)** architecture patt
 
 | Android Version            | iOS Version               | Gif               |
 |----------------------------|---------------------------|---------------------------|
-| <img src="screenshots/android.png" width="350" /> | <img src="screenshots/ios.png" width="400" /> | <img src="screenshots/shortener.gif" width="250" /> |
+| <img src="screenshots/android.png" width="350" /> | <img src="screenshots/ios.png" width="400" /> | <img src="screenshots/shortener.gif" width="300" /> |
 
 ## Setup
 
