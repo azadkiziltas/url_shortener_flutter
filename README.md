@@ -1,16 +1,59 @@
-# url_shortener
+# URL Shortener Application
 
-Url Shortener project.
+The URL Shortener is a simple and intuitive mobile application designed for Android and iOS platforms. It allows users to shorten lengthy URLs efficiently and save them locally for future reference. The app offers a clean UI, making the process of URL shortening seamless.
 
-## Getting Started
+## Features
+- Shorten long URLs with ease.
+- Save shortened URLs locally using `shared_preferences`.
+- View a list of all previously shortened URLs.
+- Cross-platform support for both Android and iOS.
+- Toast notifications for user feedback.
 
-This project is a starting point for a Flutter application.
+## Architecture
+The app is built using the **BLoC (Business Logic Component)** architecture pattern. This ensures a clear separation of concerns, making the app scalable and maintainable.
 
-A few resources to get you started if this is your first Flutter project:
+- **Business Logic**: Handles the application's core functionality and logic.
+- **UI Layer**: Displays the user interface and handles user interactions.
+- **Data Layer**: Manages data storage and retrieval using `shared_preferences` and network requests via `dio`.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Technologies and Libraries Used
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Flutter**: Framework for cross-platform development.
+- **BLoC**: State management library for predictable state transitions.
+- **Dio**: HTTP client for making network requests.
+- **Shared Preferences**: Persistent local storage for saving shortened URLs.
+- **Flutter Toast**: Displaying toast messages for user feedback.
+- **Flutter Launcher Icons**: Custom app icons for Android and iOS.
+
+## Screenshots
+
+| Android Version            | iOS Version               |
+|----------------------------|---------------------------|
+| <img src="screenshots/android.png" width="350" /> | <img src="screenshots/ios.png" width="400" /> |
+
+## Setup
+
+1. Clone this repository:
+    ```bash
+    git clone https://github.com/azadkiziltas/url_shortener_flutter.git
+    ```
+2. Navigate to the project directory:
+    ```bash
+    cd url_shortener_flutter
+    ```
+3. Install dependencies:
+    ```bash
+    flutter pub get
+    ```
+4. Run the application on your device:
+    ```bash
+    flutter run
+    ```
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+---
+
+Feel free to contribute, report issues, or share feedback by opening an issue or contacting me. Happy coding!
